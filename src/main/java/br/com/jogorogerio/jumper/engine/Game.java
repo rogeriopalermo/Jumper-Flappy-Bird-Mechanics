@@ -11,6 +11,8 @@ import android.view.View;
 
 import br.com.jogorogerio.jumper.R;
 import br.com.jogorogerio.jumper.elements.Bird;
+import br.com.jogorogerio.jumper.elements.Pipe;
+import br.com.jogorogerio.jumper.elements.Pipes;
 import br.com.jogorogerio.jumper.graphic.Screen;
 
 /**
@@ -23,6 +25,7 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
     private Bird bird;
     private Bitmap back;
     private Screen screen;
+    private Pipes pipes;
 
 
     public Game(Context context) {
@@ -33,7 +36,8 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
     }
 
     private void startElements() {
-        bird = new Bird();
+        bird = new Bird(screen);
+        pipes = new Pipes(screen);
         Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
         back = Bitmap.createScaledBitmap(background, screen.getWidth(), screen.getHeight(), false );
     }
@@ -46,8 +50,10 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
             Canvas canvas = holder.lockCanvas();
             //drawing the game's components
             canvas.drawBitmap(back, 0, 0, null);
-            bird.drawOnCanvas(canvas);
             bird.fall();
+            bird.drawOnCanvas(canvas);
+            pipes.drawOnCanvas(canvas);
+            pipes.move();
             holder.unlockCanvasAndPost(canvas);
         }
     }

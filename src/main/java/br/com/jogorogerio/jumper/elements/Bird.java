@@ -4,6 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import br.com.jogorogerio.jumper.graphic.CustomColors;
+import br.com.jogorogerio.jumper.graphic.Screen;
 
 /**
  * Created by Rogerio on 16/08/2016.
@@ -13,9 +14,11 @@ public class Bird {
     public static final float x = 100;
     public static final float radius = 50;
     public static final Paint red = CustomColors.getBirdColor();
+    private Screen screen;
     private float height;
-    public Bird() {
+    public Bird(Screen screen) {
         height = 100;
+        this.screen = screen;
     }
 
     public void drawOnCanvas(Canvas canvas) {
@@ -23,10 +26,14 @@ public class Bird {
     }
 
     public void fall() {
-        this.height += 5;
+        boolean hitGround = height + radius > screen.getHeight();
+        if(!hitGround) {
+            this.height += 5;
+        }
     }
 
     public void jump() {
-        this.height -= 150;
+        if(height - radius > 0)
+            this.height -= 150;
     }
 }
