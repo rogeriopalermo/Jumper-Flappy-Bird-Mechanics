@@ -62,4 +62,13 @@ public class Pipes {
 
         return maximum;
     }
+
+    public boolean collidedWithBird(Bird bird) {
+        for (Pipe pipe: pipes) {
+            if(pipe.collidedHorizontallyWithBird(bird) && pipe.collidedVerticallyWithBird(bird)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

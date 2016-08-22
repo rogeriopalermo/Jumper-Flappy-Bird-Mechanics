@@ -11,6 +11,7 @@ import android.view.View;
 
 import br.com.jogorogerio.jumper.R;
 import br.com.jogorogerio.jumper.elements.Bird;
+import br.com.jogorogerio.jumper.elements.GameOver;
 import br.com.jogorogerio.jumper.elements.Pipe;
 import br.com.jogorogerio.jumper.elements.Pipes;
 import br.com.jogorogerio.jumper.elements.Score;
@@ -28,6 +29,7 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
     private Screen screen;
     private Pipes pipes;
     private Score score;
+    private GameOver gameover;
 
 
     public Game(Context context) {
@@ -41,6 +43,7 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
         bird = new Bird(screen);
         score = new Score();
         pipes = new Pipes(screen, score);
+        gameover = new GameOver(screen);
         Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
         back = Bitmap.createScaledBitmap(background, screen.getWidth(), screen.getHeight(), false );
     }
@@ -59,6 +62,11 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
             pipes.drawOnCanvas(canvas);
             pipes.move();
             score.drawOnCanvas(canvas);
+
+            if(new CollisionVerifier(bird, pipes).collided()) {
+                isRunning = false;
+                gameover.drawOnCanvas(canvas);
+            }
             holder.unlockCanvasAndPost(canvas);
         }
     }

@@ -29,4 +29,13 @@ public class CustomColors {
         paint.setShadowLayer(10,5,5,0xFF000000);
         return paint;
     }
+
+    public static Paint getGameOverColor() {
+        Paint paint = new Paint();
+        paint.setColor(0xFFFF0000);
+        paint.setTextSize(100);
+        paint.setTypeface(Typeface.DEFAULT_BOLD);
+        paint.setShadowLayer(10,5,5,0xFF000000);
+        return paint;
+    }
 }

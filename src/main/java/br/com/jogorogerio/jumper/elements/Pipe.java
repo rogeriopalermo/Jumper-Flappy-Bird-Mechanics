@@ -57,4 +57,12 @@ public class Pipe {
     public int getPosition() {
         return position;
     }
+
+    public boolean collidedHorizontallyWithBird(Bird bird) {
+        return this.position < bird.x + bird.radius;
+    }
+
+    public boolean collidedVerticallyWithBird(Bird bird) {
+        return bird.getHeight() - bird.radius < this.topPipeHeight || bird.getHeight() + bird.radius > this.bottomPipeHeight;
+    }
 }

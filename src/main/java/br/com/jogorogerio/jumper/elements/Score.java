@@ -1,10 +1,10 @@
 package br.com.jogorogerio.jumper.elements;
 
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
+        import android.graphics.Canvas;
+        import android.graphics.Color;
+        import android.graphics.Paint;
 
-import br.com.jogorogerio.jumper.graphic.CustomColors;
+        import br.com.jogorogerio.jumper.graphic.CustomColors;
 
 /**
  * Created by Rogerio on 22/08/2016.

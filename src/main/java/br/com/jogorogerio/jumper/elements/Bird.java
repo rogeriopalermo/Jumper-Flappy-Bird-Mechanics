@@ -36,4 +36,8 @@ public class Bird {
         if(height - radius > 0)
             this.height -= 150;
     }
+
+    public float getHeight() {
+        return this.height;
+    }
 }
