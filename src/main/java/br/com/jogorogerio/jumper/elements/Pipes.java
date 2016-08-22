@@ -16,12 +16,14 @@ public class Pipes {
     private final List<Pipe> pipes = new ArrayList<Pipe>();
     private final int PIPES_QUANTITY;
     private final Screen screen;
+    private final Score score;
     private int maximum;
 
-    public Pipes(Screen screen) {
+    public Pipes(Screen screen, Score score) {
         int position = 400;
         PIPES_QUANTITY = 5;
         this.screen = screen;
+        this.score = score;
         for (int i = 0; i < PIPES_QUANTITY; i++) {
             position += DISTANCE_BETWEEN_PIPES;
             Pipe pipe = new Pipe(screen, position);
@@ -43,6 +45,7 @@ public class Pipes {
             pipe.move();
 
             if (pipe.saiuDaTela()) {
+                score.increase();
                 iterator.remove();
                 Pipe newPipe = new Pipe(screen, getMaximum() + DISTANCE_BETWEEN_PIPES);
                 iterator.add(newPipe);
