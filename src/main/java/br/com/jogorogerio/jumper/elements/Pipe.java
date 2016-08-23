@@ -1,9 +1,12 @@
 package br.com.jogorogerio.jumper.elements;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.widget.Toast;
 
+import br.com.jogorogerio.jumper.R;
 import br.com.jogorogerio.jumper.graphic.CustomColors;
 import br.com.jogorogerio.jumper.graphic.Screen;
 
@@ -19,12 +22,20 @@ public class Pipe {
     private Screen screen;
     private static final int PIPE_HEIGHT = 400;
     private static final int PIPE_WIDTH = 100;
+    private Context context;
+    private Bitmap bottomPipe;
+    private Bitmap topPipe;
 
-    public Pipe(Screen screen, int position) {
+    public Pipe(Screen screen, int position, Context context) {
         this.screen = screen;
         this.position = position;
         bottomPipeHeight = screen.getHeight() - PIPE_HEIGHT - valorAleatorio();
         topPipeHeight = 0 + PIPE_HEIGHT + valorAleatorio();
+        this.context = context;
+        Bitmap bp = BitmapFactory.decodeResource(context.getResources(), R.drawable.pipe);
+        bottomPipe = Bitmap.createScaledBitmap(bp, PIPE_WIDTH, bottomPipeHeight, false);
+        bp = BitmapFactory.decodeResource(context.getResources(), R.drawable.pipe2);
+        topPipe = Bitmap.createScaledBitmap(bp, PIPE_WIDTH, topPipeHeight, false);
     }
 
     private int valorAleatorio() {
@@ -37,12 +48,14 @@ public class Pipe {
     }
 
     private void drawBottomPipe(Canvas canvas) {
-        canvas.drawRect( position , 0, position + PIPE_WIDTH, topPipeHeight, VERDE );
+        //canvas.drawRect( position , bottomPipeHeight, position + PIPE_WIDTH, screen.getHeight(), VERDE );
 
+        canvas.drawBitmap(bottomPipe, position, bottomPipeHeight, null);
     }
 
     private void drawTopPipe(Canvas canvas) {
-        canvas.drawRect( position , bottomPipeHeight, position + PIPE_WIDTH, screen.getHeight(), VERDE );
+        //canvas.drawRect( position , 0, position + PIPE_WIDTH, topPipeHeight, VERDE );
+        canvas.drawBitmap(topPipe, position, 0, null);
 
     }
 
@@ -59,10 +72,10 @@ public class Pipe {
     }
 
     public boolean collidedHorizontallyWithBird(Bird bird) {
-        return this.position < bird.x + bird.radius;
+        return this.position < bird.x + bird.RADIUS;
     }
 
     public boolean collidedVerticallyWithBird(Bird bird) {
-        return bird.getHeight() - bird.radius < this.topPipeHeight || bird.getHeight() + bird.radius > this.bottomPipeHeight;
+        return bird.getHeight() - bird.RADIUS < this.topPipeHeight || bird.getHeight() + bird.RADIUS > this.bottomPipeHeight;
     }
 }

@@ -30,19 +30,21 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
     private Pipes pipes;
     private Score score;
     private GameOver gameover;
+    private Context context;
 
 
     public Game(Context context) {
         super(context);
+        this.context = context;
         screen = new Screen(context);
         startElements();
         setOnTouchListener(this);
     }
 
     private void startElements() {
-        bird = new Bird(screen);
+        bird = new Bird(screen, context);
         score = new Score();
-        pipes = new Pipes(screen, score);
+        pipes = new Pipes(screen, score, context);
         gameover = new GameOver(screen);
         Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
         back = Bitmap.createScaledBitmap(background, screen.getWidth(), screen.getHeight(), false );

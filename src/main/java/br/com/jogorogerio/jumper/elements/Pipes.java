@@ -1,5 +1,6 @@
 package br.com.jogorogerio.jumper.elements;
 
+import android.content.Context;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
@@ -18,15 +19,17 @@ public class Pipes {
     private final Screen screen;
     private final Score score;
     private int maximum;
+    private Context context;
 
-    public Pipes(Screen screen, Score score) {
+    public Pipes(Screen screen, Score score, Context context) {
         int position = 400;
         PIPES_QUANTITY = 5;
         this.screen = screen;
         this.score = score;
+        this.context = context;
         for (int i = 0; i < PIPES_QUANTITY; i++) {
             position += DISTANCE_BETWEEN_PIPES;
-            Pipe pipe = new Pipe(screen, position);
+            Pipe pipe = new Pipe(screen, position, context);
             pipes.add(pipe);
         }
     }
@@ -47,7 +50,7 @@ public class Pipes {
             if (pipe.saiuDaTela()) {
                 score.increase();
                 iterator.remove();
-                Pipe newPipe = new Pipe(screen, getMaximum() + DISTANCE_BETWEEN_PIPES);
+                Pipe newPipe = new Pipe(screen, getMaximum() + DISTANCE_BETWEEN_PIPES, context);
                 iterator.add(newPipe);
             }
         }
