@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import br.com.jogorogerio.jumper.engine.Sound;
 import br.com.jogorogerio.jumper.graphic.Screen;
 
 /**

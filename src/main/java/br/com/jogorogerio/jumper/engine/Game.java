@@ -31,19 +31,21 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
     private Score score;
     private GameOver gameover;
     private Context context;
+    private Sound sound;
 
 
     public Game(Context context) {
         super(context);
         this.context = context;
+        sound = new Sound(context);
         screen = new Screen(context);
         startElements();
         setOnTouchListener(this);
     }
 
     private void startElements() {
-        bird = new Bird(screen, context);
-        score = new Score();
+        bird = new Bird(screen, context, sound);
+        score = new Score(context, sound);
         pipes = new Pipes(screen, score, context);
         gameover = new GameOver(screen);
         Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.background);
@@ -66,6 +68,7 @@ public class Game extends SurfaceView implements Runnable, View.OnTouchListener{
             score.drawOnCanvas(canvas);
 
             if(new CollisionVerifier(bird, pipes).collided()) {
+                sound.playMusic(Sound.COLLISION);
                 isRunning = false;
                 gameover.drawOnCanvas(canvas);
             }

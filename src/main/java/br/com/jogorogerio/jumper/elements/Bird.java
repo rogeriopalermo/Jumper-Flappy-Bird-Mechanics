@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 
 import br.com.jogorogerio.jumper.R;
+import br.com.jogorogerio.jumper.engine.Sound;
 import br.com.jogorogerio.jumper.graphic.CustomColors;
 import br.com.jogorogerio.jumper.graphic.Screen;
 
@@ -21,8 +22,10 @@ public class Bird {
     private Screen screen;
     private float height;
     private Bitmap bird;
-    public Bird(Screen screen, Context context) {
+    private Sound sound;
+    public Bird(Screen screen, Context context, Sound sound) {
         height = 100;
+        this.sound = sound;
         this.screen = screen;
         Bitmap bp = BitmapFactory.decodeResource(context.getResources(), R.drawable.bird);
         bird = Bitmap.createScaledBitmap(bp, RADIUS * 2, RADIUS * 2, false);
@@ -41,8 +44,10 @@ public class Bird {
     }
 
     public void jump() {
-        if(height - RADIUS > 0)
+        if(height - RADIUS > 0) {
+            sound.playMusic(Sound.JUMP);
             this.height -= 150;
+        }
     }
 
     public float getHeight() {
